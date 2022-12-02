@@ -1,0 +1,100 @@
+// Andrew Boskakov
+// 9/25/22
+// CS 145
+// Guessing Game
+//
+// This program runs a guessing game. Computer chooses a
+// number, and it helps you guess by saying higher or lower
+
+import java.util.*;
+
+// Extablishes variables and Scanner, plays the intro
+// calls the game method, records the values and assigns
+// them to the right variables, calls the results method
+// and uses the variables that it took in to display some stats
+public class Guessinggame {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int guesses;
+        int bestGame = 99999;
+        int nGames = 0;
+        int totalG = 0;
+        boolean playAgain = false;
+        intro();
+        while(!playAgain) {
+            nGames++;
+            guesses = game(input);
+            System.out.println("Do you want to play again?");
+            String response = input.next();
+            if(guesses < bestGame) {
+                bestGame = guesses;
+            }
+            totalG += guesses;
+            boolean validR = false;
+            while(!validR) {
+                if (response.substring(0, 1).toLowerCase().equals("n")) {
+                    results(bestGame, nGames, totalG);
+                    playAgain = true;
+                    validR = true;
+                } else if (response.substring(0, 1).toLowerCase().equals("y")) {
+                    validR = true;
+                } else {
+                    System.out.println("please try again.");
+                    response = input.next();
+                }
+            }
+        }
+
+    }
+
+    //plays intro using print functions
+    public static void intro() {
+        System.out.println("This program allows you to play a guessing game.");
+        System.out.println("I will think of a number between 1 and");
+        System.out.println("100 and will allow you to guess until");
+        System.out.println("you get it. For each guess, I will tell you");
+        System.out.println("whether the right answer is higher or lower");
+        System.out.println("than your guess.");
+    }
+
+    // uses the Random function to make a number, takes in user
+    // input using scanner, compares values and prints higher or
+    // lower. Once user wins, returns the amount of guesses.
+    public static int game(Scanner input) {
+        int guesses = 1;
+        boolean guessed = false;
+        Random randNumb = new Random();
+        int n = randNumb.nextInt(99) + 1;
+        System.out.println("I'm thinking of a number between 1 and 100...");
+        while(!guessed) {
+            System.out.println("Your guess?");
+            while(!input.hasNextInt()) {
+                System.out.println("Please only use an Integer");
+                input.next();
+            }
+            int response = Integer.parseInt(input.next());
+            if(n == response) {
+                System.out.println("You got it right in " + guesses + " guesses");
+                return guesses;
+            }
+            else if(n < response) {
+                System.out.println("It's lower.");
+            }
+            else{
+                System.out.println("It's higher.");
+            }
+            guesses++;
+        }
+        return guesses+10000;
+    }
+
+    // takes in variables to print for users convenience, does some math
+    // for one of the prints
+    public static void results(int bestGame, int totalGames, int totalGuesses) {
+        System.out.println("Overall results:");
+        System.out.println("\ttotal games   \t= " + totalGames);
+        System.out.println("\ttotal guesses\t= " + totalGuesses);
+        System.out.println("\tguesses/game\t= " + (double) totalGuesses /(double) totalGames);
+        System.out.println("\tbest game   \t= " + bestGame);
+    }
+}

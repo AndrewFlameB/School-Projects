@@ -1,0 +1,41 @@
+
+import java.security.SecureRandom;
+import java.util.*;
+
+
+public class DeckOfCards {
+    // random number generator
+    private static final SecureRandom randomNumbers = new SecureRandom();
+    private static final int NUMBER_OF_CARDS = 52;
+
+    private Stack<String> deck = new Stack<String>(); // Card reference
+    private int currentCard = 0; // Index of the Next Card to be dealt (0 - 51)
+
+    //constructor fills deck of Cards
+    public DeckOfCards() {
+        String[] faces = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven",
+                "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+        String[] suits = {"Hearts", "Diamond", "Club", "Spades"};
+
+        //populates deck with Card objects
+        for (int count = 0; count < NUMBER_OF_CARDS; count++) {
+            deck.push(faces[count % 13] + " " + suits[count / 13]);
+        }
+    }
+
+    //shuffle deck of Cards with one pass algorithm
+    public void shuffle() {
+        Collections.shuffle(deck);
+    }
+
+    //deal Cards
+    public String dealCard() {
+        //determines if card remains to be dealt
+        if (currentCard < NUMBER_OF_CARDS) {
+            return deck.pop();
+        }
+        else {
+            return null;
+        }
+    }
+}

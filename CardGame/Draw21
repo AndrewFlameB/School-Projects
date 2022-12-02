@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Draw21 {
+    public static void main(String[] args) {
+        int i = 0;
+        Scanner input = new Scanner(System.in);
+        String Card = "";
+        DeckOfCards myDeckOfCards = new DeckOfCards();
+        Gameplay myGameplay = new Gameplay();
+        myDeckOfCards.shuffle();
+        int cardValue = 0;
+        boolean game = true;
+
+        System.out.println("Welcome to Blackjack");
+        System.out.println("\"P\" to Start a Game");
+        System.out.println("Press anything else to quit the program");
+
+        while(game) {
+            String response = input.nextLine();
+            if (response.equals("p")) {
+                while (i <= 1) {
+                    Card = myDeckOfCards.dealCard();
+                    String letter = Card.charAt(0) + "" + Card.charAt(1);
+                    System.out.println(Card);
+
+                    cardValue += myGameplay.CardValue(letter, input);
+
+                    game = myGameplay.Lose(cardValue);
+                    if (!game) {
+                        i = 4;
+                    }
+
+                    i = myGameplay.Continue(input, i);
+                }
+            }
+            else {
+                System.out.println("You got the value of: " + cardValue);
+                System.out.println("Thank you for playing!");
+                break;
+            }
+        }
+
+        //prints all 52 cards in order in which they were dealt
+
+    }
+}

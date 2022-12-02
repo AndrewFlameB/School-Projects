@@ -1,0 +1,103 @@
+import java.util.Scanner;
+
+public class phonebookManager {
+    private String cities;
+    private listNode front;
+
+    public phonebookManager(String name){
+        this.front = null;
+        this.cities = name;
+    }
+
+    private void addContact(String firstName, String lastName, String email, String city, String phoneNumber){
+        listNode newListNode = new listNode(firstName, lastName, email, city, phoneNumber);
+        if (front == null) {
+            initializeChain(newListNode);
+        } else {
+            addToEndOfChain(newListNode);
+        }
+    }
+
+   (listNode newListNode) {
+        this.front = newListNode;
+    }
+
+    private void addToEndOfChain (listNode newListNode) {
+        listNode current = this.front;
+        while(current.next != null) {
+            current = current.next;
+        }
+        current.next = newListNode;
+    }
+
+    public void printAllContacts() {
+        listNode current = this.front;
+        while(current.next != null){
+            System.out.println("First Name: " + current.getFirstName() + "Last Name: " + current.getLastName() +
+                    "\nEmail: " + current.getEmail() + "\nCity: " + current.getCity() +
+                    "\nPhone Number: " + current.getPhoneNumber());
+            current = current.next;
+        }
+        System.out.println("First Name: " + current.getFirstName() + "Last Name: " + current.getLastName() +
+                "\nEmail: " + current.getEmail() + "\nCity: " + current.getCity() +
+                "\nPhone Number: " + current.getPhoneNumber());
+        System.out.println();
+    }
+
+    public void introduction() {
+        System.out.println("Welcome to the Phone Book!");
+        System.out.println("Would you like to (add) contact info into the Phonebook?");
+        System.out.println("Would you like to (view) contact info in the Phonebook?");
+        System.out.println("Would you like to (remove) contact info from the Phonebook?");
+        System.out.println("Or would you like to (quit) the program?");
+    }
+
+    public void addOption(Scanner input) {
+        String firstName;
+        String lastName;
+        String email;
+        String city;
+        String phonenumber;
+        System.out.println("First Name?");
+        firstName= input.next();
+        System.out.println("Last Name?");
+        lastName= input.next();
+        System.out.println("Email?");
+        email= input.next();
+        city = "Bellingham";
+        System.out.println("Phone Number?");
+        phonenumber= input.next();
+
+        addContact(firstName, lastName, email, city, phonenumber);
+    }
+
+    public void removeContact(Scanner input) {
+
+        printAllContacts();
+        System.out.println("Which contact do you want to remove? (numbered, starting with 1)");
+        // If linked list is empty
+        int number = Integer.parseInt(input.next());
+        if (front == null)
+            return;
+
+        listNode temp = front;
+
+        if (number == 0) {
+            front = temp.next;
+            return;
+        }
+
+        for (int i = 0; temp != null && i < number - 2;
+             i++)
+            temp = temp.next;
+
+        if (temp == null || temp.next == null)
+            return;
+
+        listNode next = temp.next.next;
+
+        temp.next = next;
+    }
+
+}
+

@@ -1,0 +1,44 @@
+// ListNode is a class for storing a single node of a linked
+// list. This node class is for a list of integer values.
+
+public class listNode {
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String city;
+    private String phoneNumber;
+    public int data; // data stored in this node
+    public listNode next; // link to next node in the list
+
+
+    public listNode(String firstName, String lastName, String email, String city, String phoneNumber) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        this.next = next;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
+    public String getCity(){
+        return this.city;
+    }
+
+    public String getPhoneNumber(){
+        return this.phoneNumber;
+    }
+
+}

@@ -1,0 +1,29 @@
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class TestClass {
+    public static void main(String[] args) {
+        phonebookManager Bellingham = new phonebookManager("Bellingham");
+        boolean quit = false;
+        Scanner input = new Scanner(System.in);
+
+        Bellingham.introduction();
+
+        while (!quit) {
+            String response = input.nextLine();
+            if (response.equals("add")) {
+                Bellingham.addOption(input);
+            }else if (response.equals("view")) {
+                Bellingham.printAllContacts();
+            } else if (response.equals("remove")) {
+                Bellingham.removeContact(input);
+            } else if (response.equals("quit")) {
+                System.out.println("Have a nice day!");
+                quit = true;
+            } else {
+                System.out.println("Please choose a valid option of (add), (view), (remove), (quit)");
+            }
+
+        }
+    }
+}
